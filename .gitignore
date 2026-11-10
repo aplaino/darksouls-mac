@@ -1,0 +1,19 @@
+# The game: never committed (keep your copy outside the repo, or list its
+# folder in .git/info/exclude).
+_patches/
+# Derived from the player's game files: never committed. (symbols/ is: the
+# functions' addresses and names, which the lifter needs.)
+generated/
+ghidra/
+*.gpr
+*.rep/
+out/
+# Runs, captures and scratch.
+logs/
+work/
+# Local machine settings.
+tools/local.env
+CMakeUserPresets.json
+__pycache__/
+.DS_Store
+*.log

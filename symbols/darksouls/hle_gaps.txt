@@ -1,0 +1,8 @@
+ws2_32.dll      24  WSAAsyncSelect WSACloseEvent WSACreateEvent WSAEnumNetworkEvents WSAEventSelect WSAWaitForMultipleEvents __WSAFDIsSet accept connect gethostbyaddr gethostbyname gethostname getservbyname getservbyport getsockname getsockopt inet_addr inet_ntoa listen recv select send setsockopt shutdown
+kernel32.dll    23  CreateMutexW CreateNamedPipeW FormatMessageW GetDiskFreeSpaceExW GetDiskFreeSpaceW GetDriveTypeW GetExitCodeProcess GetFullPathNameW GetPrivateProfileIntW GetProcessTimes GetSystemDefaultLCID GetSystemDefaultLangID GetTempFileNameW GetTempPathW LocalFileTimeToFileTime MoveFileW OutputDebugStringW Process32FirstW Process32NextW SetNamedPipeHandleState SetThreadIdealProcessor WritePrivateProfileSectionW lstrcmpW
+xlive.dll       17  #29 #30 #33 #35 #5006 #5261 #5266 #5275 #5293 #5309 #5377 #54 #55 #56 #60 #71 #8
+advapi32.dll    13  AllocateAndInitializeSid CopySid CryptAcquireContextW CryptGenRandom CryptReleaseContext FreeSid GetLengthSid GetTokenInformation GetUserNameW InitializeSecurityDescriptor OpenProcessToken SetEntriesInAclW SetSecurityDescriptorDacl
+user32.dll      11  DispatchMessageW GetMessageW GetQueueStatus LoadCursorW LoadIconW PeekMessageW PostMessageW PostThreadMessageW RegisterClassExW RegisterWindowMessageW SetWindowLongW
+d3dx9_43.dll     6  D3DXCompileShader D3DXCreateCubeTexture D3DXCreateCubeTextureFromFileInMemoryEx D3DXCreateTexture D3DXCreateTextureFromFileInMemory D3DXCreateTextureFromFileInMemoryEx
+oleaut32.dll     2  SysAllocString SysFreeString
+ole32.dll        1  CoFreeUnusedLibraries

@@ -1,0 +1,11 @@
+# Dark Souls: Prepare to Die Edition 1.0.2.0 — lifter manifest.
+#
+# entry <va>            a function Ghidra missed (indirect-branch target)
+# replace <va> Name     define f_<VA> in C++ instead of the lifted body
+# hook <va> <end>       patch the byte range (unlifted, replaced by a hook)
+
+# setjmp/longjmp (ARCHITECTURE.md, "Non-local exits"): the CRT's setjmp, whose
+# call sites' return addresses become entries, and longjmp's final jump to
+# the saved return address, which resumes the setjmp caller's frame.
+setjmp 00AE8794
+resume 00AE31AE

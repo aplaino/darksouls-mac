@@ -1,0 +1,4 @@
+[submodule "vendor/x86recomp"]
+	path = vendor/x86recomp
+	url = https://github.com/aplaino/x86recomp.git
+	branch = darksouls
