@@ -7,6 +7,8 @@ code is statically recompiled into native ARM64 code, and the Windows APIs it
 calls (Direct3D 9, DirectInput, XInput, the C runtime, Games for Windows LIVE,
 DirectSound, ...) are reimplemented on top of macOS, Metal and SDL3.
 
+![Undead Burg running natively on an M5 Pro, with the Metal performance HUD](docs/screenshot.jpg)
+
 This repository contains **no game files**. You need your own copy of the
 game; the build reads it from your disk and generates everything else.
 
