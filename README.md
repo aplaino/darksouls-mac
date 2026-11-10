@@ -28,6 +28,11 @@ Playable from start through the first areas:
 Known issues:
 
 - Keyboard input stops after switching to fullscreen; play windowed.
+- On-screen button prompts show Xbox buttons even with keyboard and mouse.
+  The original PC release does the same; the keyboard defaults are W A S D
+  move, I J K L camera, O lock on, H/U right hand, Tab left hand, Q
+  interact, Space roll, E use item, F/R/C/V switch item/spell/weapons, G
+  gestures, Escape menu, and Enter/Backspace/arrows in menus.
 - Water reflections that use clip planes are not drawn correctly yet.
 - Shadows have hard edges (no hardware PCF filtering yet).
 

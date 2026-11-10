@@ -88,7 +88,9 @@ int main(int argc, char** argv) {
   game.thread_qos = DarkSoulsThreadQos;
   // The game's own anti-aliasing pass (on by default with no .ini) renders
   // the scene black here; RECOMP_UPSCALER=smaa anti-aliases the frame.
-  game.profile_ints = {{"DisplaySettingFilter", "ForceDisableAA", 1}};
+  // The menu opens on Escape (VK 0x1B) instead of the default End.
+  game.profile_ints = {{"DisplaySettingFilter", "ForceDisableAA", 1},
+                       {"KeyConfigMenuDisp", "MenuDisp", 0x1B}};
 #if defined(__APPLE__)
   // Full screen as a Space of its own, which is what Game Mode needs.
   game.mac_fullscreen_space = true;
