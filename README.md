@@ -19,15 +19,12 @@ Playable from start through the first areas:
   instead of the PC version's fixed 1024x720, 4096x4096 shadow maps, SMAA and
   16x anisotropic filtering
 - Sound and music (FMOD through DirectSound)
-- Xbox / PlayStation / Switch controllers; keyboard and mouse in the world
+- Xbox / PlayStation / Switch controllers, or keyboard and mouse (menus
+  included: arrows, Enter, Backspace)
 - Saving and loading
 
 Known issues:
 
-- **Menus and dialogs don't accept the keyboard** (mouse and controller work).
-  The game reads menu input as virtual controller buttons, and the layer that
-  maps keyboard keys onto them isn't active yet. Use a controller or the mouse
-  in menus.
 - Keyboard input stops after switching to fullscreen; play windowed.
 - Water reflections that use clip planes are not drawn correctly yet.
 - Shadows have hard edges (no hardware PCF filtering yet).

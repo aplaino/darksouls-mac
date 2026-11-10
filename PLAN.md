@@ -72,25 +72,28 @@ Lessons worth keeping:
 
 ## Open issues
 
-1. **Menu keyboard.** Keyboard works in the world, never in menus or dialogs.
-   Keys reach DirectInput and the game's four keyboard objects (state at
-   `obj+0xDC`, key IDs `0x36+n` map to DIK through the table at
-   `0x013238B0`; `IsKeyDown` is vtable `0x64`, `f_00643990`, keyboard vtable
-   `0x01110D1C`). But per frame the menus ask the keyboards only for virtual
-   button IDs `0x00-0x35` (always false there) and the Shift keys; Enter is
-   queried only once, in a scan of the bindings (`0x0069550D`). Window key
-   messages reach the WndProc (`0x00F9AE80`) correctly, but the keyboard
-   device's message method is `return 0`. The layer that turns keys into
-   virtual buttons for menus is still unknown; a reference run on Windows
-   would settle it. Controllers work.
-2. **Fullscreen input**: keyboard input stops after switching to fullscreen.
-3. **Clip planes with shaders** (`CLIPPLANEENABLE`): water reflections.
-4. **Shadow filtering**: depth comparisons are single-tap (hard edges).
-5. **Save location**: `C:\DRAKS0005.sl2` at the root of the virtual drive;
+1. **Fullscreen input**: keyboard input stops after switching to fullscreen.
+2. **Clip planes with shaders** (`CLIPPLANEENABLE`): water reflections.
+3. **Shadow filtering**: depth comparisons are single-tap (hard edges).
+4. **Save location**: `C:\DRAKS0005.sl2` at the root of the virtual drive;
    the game gets no proper Documents path.
-6. **60 fps** (optional): the game is balanced for 30; an opt-in unlock
+5. **60 fps** (optional): the game is balanced for 30; an opt-in unlock
    would need the limiter's target and the frame-rate-dependent physics
    handled, as DSFix does.
+
+## How keyboard input reaches the menus
+
+Fixed; kept because the path is long. Each of the four player slots is a
+composite device (vtable `0x011103BC`) over a pad, a mouse and a keyboard
+(`0x01110D1C`); its `IsKeyDown` ORs the children's. Every frame the input
+listeners map keys to virtual buttons (`0x00-0x35`) through the binding
+tables on top of their context stacks (`f_00698170`, `f_00695360`). The
+contexts are rebuilt (`f_00F9D750`) from a 38-entry key configuration
+whenever it changes (`f_00F9F240`), and that configuration is read with
+`GetPrivateProfileIntW`, one key at a time, with the built-in binding as
+the default. The HLE returned the file name pointer instead of the
+default, so every key became `0x0038DF04` and the menu contexts kept only
+pad buttons.
 
 ## Debugging
 
