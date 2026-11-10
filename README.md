@@ -63,28 +63,46 @@ on the `darksouls` branch of the submodule.
 
 ## Building
 
-Requirements: macOS on Apple silicon, Xcode command line tools, Homebrew
-`cmake ninja sdl3 ffmpeg glslang spirv-cross pkgconf upx python`, and Ghidra
-only if you re-run the analysis (its results are in `symbols/`). You also need your own copy of Dark Souls: Prepare to
-Die Edition updated to **1.0.2.0** (`lift.sh` checks `DATA.exe`'s SHA-256).
+You need:
+
+- a Mac with Apple silicon, the Xcode command line tools
+  (`xcode-select --install`) and [Homebrew](https://brew.sh)
+- your own copy of Dark Souls: Prepare to Die Edition updated to
+  **1.0.2.0** (the setup checks `DATA.exe`'s SHA-256 and stops if it differs)
+- about 8 GB of free space and time: the first build compiles about
+  1.5 GB of generated C++, which takes hours on a laptop
 
 ```sh
 git clone --recursive https://github.com/aplaino/darksouls-mac
 cd darksouls-mac
-echo 'DARKSOULS_GAME_DIR="/path/to/your/game"' > tools/local.env   # the folder with DATA/
+tools/setup.sh "/path/to/your/game"     # the folder with DATA/ inside
+```
+
+`setup.sh` installs the Homebrew packages, builds the lifter, translates
+your `DATA.exe`, compiles the game and installs **Dark Souls** in
+`/Applications`. Start it from there, from Spotlight or from the Dock. Logs go to
+`~/Library/Logs/DarkSouls`.
+
+The steps one by one, if you want them:
+
+```sh
+brew install cmake ninja llvm@22 sdl3 ffmpeg glslang spirv-cross pkgconf upx python
+echo 'DARKSOULS_GAME_DIR="/path/to/your/game"' > tools/local.env
 cmake --preset release
 cmake --build out/build/release --target recomp_lift   # the lifter
 tools/lift.sh                  # translates your DATA.exe into generated/
-tools/build.sh                 # compiles the game (the first time takes a while)
-tools/app.sh && open out/DarkSouls.app
+tools/build.sh                 # compiles the game
+tools/app.sh --install         # the app, copied to /Applications
 ```
 
 `tools/build.sh` takes a lock so two builds never share the build directory.
 After a runtime change it rebuilds in seconds; only a re-lift recompiles game
-code, and then only the files that changed.
+code, and then only the files that changed. Run `tools/app.sh --install`
+again after each build. Ghidra is needed only to redo the analysis; its
+results are in `symbols/`.
 
 Graphics options (set in `tools/app.sh`; each can be overridden with
-`open --env NAME=value out/DarkSouls.app`):
+`open --env NAME=value -a "Dark Souls"`):
 
 | Variable | Default | Effect |
 |---|---|---|
