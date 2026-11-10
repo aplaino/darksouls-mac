@@ -86,6 +86,9 @@ int main(int argc, char** argv) {
   // none connected, keyboard and mouse prompts.
   game.pad_slot_without_pad = false;
   game.thread_qos = DarkSoulsThreadQos;
+  // The game's own anti-aliasing pass (on by default with no .ini) renders
+  // the scene black here; RECOMP_UPSCALER=smaa anti-aliases the frame.
+  game.profile_ints = {{"DisplaySettingFilter", "ForceDisableAA", 1}};
 #if defined(__APPLE__)
   // Full screen as a Space of its own, which is what Game Mode needs.
   game.mac_fullscreen_space = true;
