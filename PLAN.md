@@ -72,12 +72,11 @@ Lessons worth keeping:
 
 ## Open issues
 
-1. **Fullscreen input**: keyboard input stops after switching to fullscreen.
-2. **Clip planes with shaders** (`CLIPPLANEENABLE`): water reflections.
-3. **Shadow filtering**: depth comparisons are single-tap (hard edges).
-4. **Save location**: `C:\DRAKS0005.sl2` at the root of the virtual drive;
+1. **Clip planes with shaders** (`CLIPPLANEENABLE`): water reflections.
+2. **Shadow filtering**: depth comparisons are single-tap (hard edges).
+3. **Save location**: `C:\DRAKS0005.sl2` at the root of the virtual drive;
    the game gets no proper Documents path.
-5. **60 fps** (optional): the game is balanced for 30; an opt-in unlock
+4. **60 fps** (optional): the game is balanced for 30; an opt-in unlock
    would need the limiter's target and the frame-rate-dependent physics
    handled, as DSFix does.
 
