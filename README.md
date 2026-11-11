@@ -27,7 +27,6 @@ Playable from start through the first areas:
 
 Known issues:
 
-- Keyboard input stops after switching to fullscreen; play windowed.
 - On-screen button prompts show Xbox buttons even with keyboard and mouse.
   The original PC release does the same; the keyboard defaults are W A S D
   move, I J K L camera, O lock on, H/U right hand, Tab left hand, Q
