@@ -48,6 +48,36 @@ Known issues:
 
 See [PLAN.md](PLAN.md) for engineering notes and what's next.
 
+## Performance compared with CrossOver
+
+The same game files and the same save run natively here and under
+CrossOver 26.3 (Wine, with Rosetta 2 translating the x86 code). Standing
+still where the save starts, in the Undead Burg, for 60 s, three runs each, on an
+M5 Pro (macOS 26.6), plugged in:
+
+| | Frame rate | CPU | Memory |
+|---|---|---|---|
+| This port, original settings | 30 (the game's cap), every second | 1.1 cores | 1.3 GB |
+| This port, default settings (3x scene, SMAA, 16x AF) | 30, every second | 1.1 cores | 1.4 GB |
+| CrossOver, wined3d (its default for D3D9), msync on | 13.1 average | 2.5 cores | 1.0 GB |
+| CrossOver, DXVK | black screen | | |
+
+The port's GPU needs 2.5 ms of each 33 ms frame at the original settings
+and 7.7 ms at the defaults. The comparison is as equal as we could make it:
+same window size (the port draws it at Retina resolution, CrossOver at 1x),
+the game's own anti-aliasing off on both, and GFWL answered the same way on
+both. CrossOver has no GFWL, so it gets [bench/xlive](bench/xlive), the
+runtime's offline answers built as a Windows DLL. The camera is not fully
+controlled after loading; a CrossOver run where it faced a wall reached
+30 fps and is left out. One scene only: busier ones may differ either way.
+
+To run it yourself: `bench/cx_setup.sh` (needs CrossOver and
+`brew install mingw-w64`) sets up the bottle, `bench/run_all.sh` runs every
+configuration three times (it takes over the screen for about 30 minutes)
+and `bench/summarize.py /tmp/ds1bench/results` prints the table. If your
+install starts the game through another executable, put
+`CX_EXE=<name>` in `bench/local.env`.
+
 ## How it works
 
 1. **Analysis.** Ghidra analyses the game's `DATA.exe` (version 1.0.2.0) and

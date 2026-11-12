@@ -17,3 +17,8 @@ CMakeUserPresets.json
 __pycache__/
 .DS_Store
 *.log
+# Benchmark build outputs and local settings.
+bench/tools/key
+bench/tools/winid
+bench/xlive/xlive.dll
+bench/local.env
