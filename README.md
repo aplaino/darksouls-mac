@@ -12,6 +12,17 @@ DirectSound, ...) are reimplemented on top of macOS, Metal and SDL3.
 This repository contains **no game files**. You need your own copy of the
 game; the build reads it from your disk and generates everything else.
 
+### Which version of the game works
+
+Only **1.0.2.0**, the last Games for Windows LIVE build, whose executable
+is `DATA/DATA.exe` (the setup checks its SHA-256 and stops if it differs).
+That is the version disc copies update to and the one Steam shipped before
+GFWL was removed.
+
+The version Steam serves today has GFWL removed and is a different
+executable; it **does not work yet**. Support for it is tracked in
+[#11](https://github.com/aplaino/darksouls-mac/issues/11).
+
 ## Status
 
 Playable from start through the first areas:
@@ -71,7 +82,8 @@ You need:
 - a Mac with Apple silicon, the Xcode command line tools
   (`xcode-select --install`) and [Homebrew](https://brew.sh)
 - your own copy of Dark Souls: Prepare to Die Edition updated to
-  **1.0.2.0** (the setup checks `DATA.exe`'s SHA-256 and stops if it differs)
+  **1.0.2.0**, the GFWL build (see
+  [Which version of the game works](#which-version-of-the-game-works))
 - about 8 GB of free space and time: the first build compiles about
   1.5 GB of generated C++, which takes hours on a laptop
 
