@@ -45,6 +45,10 @@ if grep -aqi upx0 "$here/work/lift/fmodex.dll"; then
 fi
 
 echo "lift.sh: lifting DATA.exe"
+# --optnone-x87-over: the few functions dense with x87 code (all six in
+# DATA.exe's 0x00B6xxxx-0x00B8xxxx) would each take clang half an hour to
+# optimise; none of them runs while playing, so they are compiled as is.
 (cd "$here/work/lift" && "$lift" --exe DATA.exe --symbols "$here/symbols/darksouls" \
-  --manifest "$here/manifest/darksouls.manifest" --out "$here/generated" "${mods[@]}" "$@")
+  --manifest "$here/manifest/darksouls.manifest" --out "$here/generated" --optnone-x87-over 4000 \
+  "${mods[@]}" "$@")
 echo "lift.sh: done"

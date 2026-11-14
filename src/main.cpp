@@ -1,10 +1,13 @@
 // darksouls: Dark Souls: Prepare to Die Edition (PC, 1.0.2.0), natively.
 //
-//   darksouls [--game-dir DIR] [-- GAME ARGS...]
+//   darksouls [--game-dir DIR] [--fmodex FILE] [-- GAME ARGS...]
 //
 // DIR is the game install: the folder holding DATA/ (DATA.exe, dvdbnd0-3,
-// movWW). Defaults to $DARKSOULS_GAME_DIR. Arguments after `--` go on the
-// game's own command line. Set DARKSOULS_TRACE=1 to log every HLE call.
+// movWW). Defaults to $DARKSOULS_GAME_DIR. FILE is fmodex.dll unpacked, as
+// it was lifted (tools/lift.sh, the app's Resources); without it the game
+// folder's own is used, which works only if it was unpacked there.
+// Arguments after `--` go on the game's own command line. Set
+// DARKSOULS_TRACE=1 to log every HLE call.
 
 #include <sys/stat.h>
 
@@ -36,11 +39,13 @@ bool DarkSoulsThreadQos(recomp::gaddr entry, uint64_t, recomp::platform::ThreadQ
 }  // namespace
 
 int main(int argc, char** argv) {
-  std::string game_dir, game_args;
+  std::string game_dir, game_args, fmodex;
   if (const char* e = std::getenv("DARKSOULS_GAME_DIR")) game_dir = e;
   for (int i = 1; i < argc; i++) {
     if (!std::strcmp(argv[i], "--game-dir") && i + 1 < argc) {
       game_dir = argv[++i];
+    } else if (!std::strcmp(argv[i], "--fmodex") && i + 1 < argc) {
+      fmodex = argv[++i];
     } else if (!std::strcmp(argv[i], "--")) {
       for (i++; i < argc; i++) {
         if (!game_args.empty()) game_args += ' ';
@@ -50,7 +55,7 @@ int main(int argc, char** argv) {
         if (quote) game_args += '"';
       }
     } else {
-      std::fprintf(stderr, "usage: %s [--game-dir DIR] [-- GAME ARGS...]\n", argv[0]);
+      std::fprintf(stderr, "usage: %s [--game-dir DIR] [--fmodex FILE] [-- GAME ARGS...]\n", argv[0]);
       return 2;
     }
   }
@@ -100,6 +105,7 @@ int main(int argc, char** argv) {
   // a retail install keeps both DLLs in DATA/ next to the exe; the loader
   // matches them by file name, so the game's own LoadLibrary("fmodex.dll")
   // finds the mapped image instead of reading from disk.
-  game.lifted_dlls = {{"DATA\\fmodex.dll"}, {"DATA\\fmod_event.dll", 0x11000000}};
+  // fmodex.dll ships UPX-packed; the lifted code is of the unpacked image.
+  game.lifted_dlls = {{"DATA\\fmodex.dll", 0, fmodex}, {"DATA\\fmod_event.dll", 0x11000000}};
   return recomp::RunProcess(game, exe, game_dir, game_args);
 }

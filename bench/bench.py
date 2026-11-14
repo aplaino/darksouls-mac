@@ -45,7 +45,8 @@ def launch(mode, log):
             env.update(RECOMP_RT_BOOST="1024x720:3,512x360:3,256x180:3,2048x2048:2",
                        RECOMP_UPSCALER="smaa", DARKSOULS_ANISO="16")
         exe = os.path.join(ROOT, "out/build/release/darksouls")
-        p = subprocess.Popen([exe, "--game-dir", env["DARKSOULS_GAME_DIR"]], env=env,
+        p = subprocess.Popen([exe, "--game-dir", env["DARKSOULS_GAME_DIR"],
+                              "--fmodex", os.path.join(ROOT, "work/lift/fmodex.dll")], env=env,
                              stdout=log, stderr=subprocess.STDOUT)
         return p, lambda: [p.pid]
     shutil.copy(SAVE, os.path.join(BOTTLE, "drive_c/users/crossover/Documents/NBGI/DarkSouls/Player"))
