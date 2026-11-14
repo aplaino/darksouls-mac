@@ -107,6 +107,31 @@ on the `darksouls` branch of the submodule.
 
 ## Building
 
+### With the Builder
+
+1. Download **Dark Souls Builder** from the
+   [releases](https://github.com/aplaino/darksouls-mac/releases) and open
+   it. It is not signed by Apple: the first time, go to System Settings,
+   Privacy & Security, and press **Open Anyway**.
+2. Drop your Dark Souls folder (the one with `DATA` inside) on it. If asked,
+   install Apple's Command Line Tools with its button (free).
+3. Press **Build Dark Souls**. About 30 minutes later (on an M5 Pro)
+   DarkSouls is in Applications. Its first start takes up to a minute while
+   the game's shaders are compiled
+   ([#15](https://github.com/aplaino/darksouls-mac/issues/15)).
+
+The Builder carries everything that is not the game's code, already built:
+the translator, the runtime and its libraries, and the app without its
+executable. On your Mac it translates your own `DATA.exe`, compiles that
+with Apple's compiler and puts the result in the app. No Homebrew, no
+Terminal. [builder/LICENSES.md](builder/LICENSES.md) lists what it carries.
+
+It needs macOS 14 or newer, Apple's Command Line Tools 26 or newer (clang
+21; the Builder checks), your game updated to 1.0.2.0 and about 5 GB of
+free space while it builds. `builder/make_builder.sh` makes it.
+
+### From the Terminal
+
 You need:
 
 - a Mac with Apple silicon, the Xcode command line tools
@@ -114,8 +139,9 @@ You need:
 - your own copy of Dark Souls: Prepare to Die Edition updated to
   **1.0.2.0**, the GFWL build (see
   [Which version of the game works](#which-version-of-the-game-works))
-- about 8 GB of free space and time: the first build compiles about
-  1.5 GB of generated C++, which takes hours on a laptop
+- about 6 GB of free space and about 25 minutes: the first build
+  translates your `DATA.exe` and compiles about 900 MB of generated C++
+  (M5 Pro, plugged in)
 
 ```sh
 git clone --recursive https://github.com/aplaino/darksouls-mac
